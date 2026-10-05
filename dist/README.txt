@@ -1,11 +1,12 @@
-﻿Fliqlo (Offline Edition) v1.5.2
-Flip Clock Screensaver for Windows
+Flip Clock Screensaver for Windows v1.5.2
+(Fullscreen Retro Digital Flip Clock)
 
 QUICK INSTALL:
 1. Right-click "Fliqlo.scr" and choose "Install".
-2. Windows Screen Saver Settings will open.
-3. Click "Settings" to adjust 12h/24h format, scale, and brightness.
-4. Enjoy!
+2. Windows Screen Saver Settings will open with the screensaver selected.
+3. Click "Settings..." to choose 12h/24h format, clock size, and brightness.
+4. Click OK and you are all set!
 
-Original design by Yuji Adachi (9031.com / fliqlo.com).
-Offline fork by andreysdsgroup (https://github.com/andreysdsgroup/fliqlo-offline).
+Repository: https://github.com/andreysdsgroup/flip-clock-screensaver
+Original flip clock design by Yuji Adachi (9031.com / fliqlo.com).
+Standalone offline Windows release by andreysdsgroup.
