@@ -1,72 +1,94 @@
 ﻿# Fliqlo (Offline Edition)
 
-> **100% Offline Flip Clock Screensaver for Windows**  
-> Полностью автономная заставка «Перекидные часы» (Flip Clock) для Windows без зависимости от интернета и без телеметрии.
+A completely offline, telemetry-free flip clock screensaver for Windows.
 
-
-![Fliqlo Offline Screenshot](actual_clock.png)
+![Fliqlo 24h Clock](actual_clock.png)
 
 ---
 
-## 📌 О форке и источнике / Fork Information
+## The Story
 
-* **Оригинал / Original Project:** [Fliqlo Screensaver](https://fliqlo.com/) by **Yuji Adachi** ([9031.com](https://9031.com/))
-* **Базовая версия:** Fliqlo for Windows v1.5.1 (март 2021)
-* **Автор форка:** [andreysdsgroup](https://github.com/andreysdsgroup)
+If you've used the popular [Fliqlo](https://fliqlo.com/) flip clock screensaver on Windows recently (version 1.5.1), you might have noticed something annoying: disconnect from Wi-Fi or go offline, and instead of a clock, you get a black screen or a giant gray exclamation mark.
 
----
+Under the hood, the official 1.5.1 Windows release was just a thin wrapper hosting an Internet Explorer web view that phoned home to `https://fliqlo.app/` every time it woke up. It loaded external scripts, bundled Google Analytics tracking, and explicitly checked `NetworkInterface.GetIsNetworkAvailable()` to refuse to render if there was no active internet connection.
 
-## 🔍 Какую проблему решает этот форк / Background & Motivation
-
-В оригинальной версии Fliqlo 1.5.1 для Windows:
-1. **Жесткая зависимость от интернета:** сама заставка представляет собой оболочку (.NET WinForms / WebBrowser), которая загружала веб-страницу часов с удалённого сервера `https://fliqlo.app/`.
-2. **Блокировка без сети:** перед запуском в C#-коде стояла искусственная проверка `NetworkInterface.GetIsNetworkAvailable()`. Если компьютер не был подключен к интернету, часы даже не пытались запускаться — отображался черный экран или большой серый восклицательный знак (`Resources.error` с подсказкой *"No Internet Connection"*).
-3. **Сторонняя телеметрия:** в страницу был встроен скрипт счетчика Google Tag Manager (`G-YC1T5FXJG3`).
-4. **Проверка домена:** в JavaScript была зашита проверка домена `window.location.hostname.indexOf("fliqlo.app") >= 0`, из-за чего страницу нельзя было просто открыть из локального файла.
-
-При этом сами часы (переворот пластин, 12/24 формат, расчет времени) работали на локальном JavaScript и брали системное время компьютера через `new Date()`. Требование сети было исключительно искусственным ограничением.
+This fork fixes all of that:
+* **Zero network calls:** Everything (HTML, CSS3 3D flip animations, JS logic, and custom typography) is compiled directly into the binary as in-memory resources.
+* **No tracking:** Google Tag Manager and external analytics have been removed.
+* **Local loopback server:** A tiny in-process HTTP server on `127.0.0.1` serves the assets directly from RAM, cleanly bypassing local Internet Explorer `file:///` font security blocks without creating temp files on disk.
+* **Native system time:** Time is read directly from your Windows system clock.
+* **Defaults to 24-hour time:** Modern 24h clock out of the box, with easy toggle back to 12h if you prefer.
 
 ---
 
-## ✨ Что сделано в этой версии / Improvements
+## Download
 
-* ✅ **100% Offline:** Все ресурсы (HTML-разметка, стили CSS3 3D-анимации, JavaScript-логика и фирменные шрифты `.woff` / `.ttf` / `.eot`) встроены прямо в бинарный файл заставки в виде байтовых массивов в оперативной памяти.
-* ✅ **Встроенный локальный микро-сервер:** В процесс заставки встроен легковесный `LocalServer` на базе `HttpListener` (`127.0.0.1`), который отдаёт ресурсы прямо из ОЗУ. Это обходит ограничения безопасности локальной зоны IE (`file://`) для веб-шрифтов `@font-face` без необходимости создавать временные файлы на диске.
-* ✅ **Удален весь трекинг и мусор:** Вырезаны счетчики Google Tag Manager/Analytics и сетевые проверки.
-* ✅ **Убраны ограничения домена:** Скрипты модифицированы для безоговорочной работы в локальном режиме.
-* ✅ **Нативное системное время:** Время берется напрямую из локальной операционной системы Windows.
-* ✅ **Поддержка нескольких мониторов:** Заставка корректно растягивается на все подключенные экраны, как и оригинал.
-* ✅ **Панель настроек (`/c`):** Поддерживается переключение 12/24-часового формата, масштабирование (размер часов) и регулятор яркости.
+You don't need to compile anything if you just want the screensaver:
+
+* **[Download Fliqlo.scr (Direct Download)](https://github.com/andreysdsgroup/fliqlo-offline/releases/download/v1.5.2/Fliqlo.scr)**
+* **[Download Fliqlo-Offline-v1.5.2.zip](https://github.com/andreysdsgroup/fliqlo-offline/releases/download/v1.5.2/Fliqlo-Offline-v1.5.2.zip)**
+* Or grab the prebuilt file straight from the [`dist/`](dist/Fliqlo.scr) directory in this repo.
 
 ---
 
-## 🚀 Установка / Installation
+## Installation
 
-1. Скачайте или соберите `Fliqlo.scr`.
-2. Щелкните правой кнопкой мыши по файлу `Fliqlo.scr` и выберите **«Установить»** (Install).
-3. Либо скопируйте файл в `C:\Users\%USERNAME%\AppData\Local\Programs\Fliqlo\Fliqlo.scr` и укажите его в настройках заставки Windows (Screen Saver Settings).
+1. Grab **`Fliqlo.scr`** from the links above.
+2. Right-click **`Fliqlo.scr`** and click **Install**.
+3. Windows will open the **Screen Saver Settings** panel with Fliqlo selected as your active screensaver.
+4. Click **OK** to save. That's it!
+
+*(Optional manual install)*: Move `Fliqlo.scr` to `C:\Windows\System32` or keep it in any folder (like `C:\Users\<YourUser>\AppData\Local\Programs\Fliqlo\`), right-click and choose Install.
 
 ---
 
-## 🛠 Сборка из исходников / Build from Source
+## How to Switch Between 12h and 24h Time
 
-Требования: Windows 10/11, установленный .NET SDK или Visual Studio / MSBuild.
+This build defaults to **24-hour format** (`16:08`), but you can switch to 12-hour format or customize the look anytime:
 
-### Быстрая сборка через командную строку (One-click build):
+1. Open Windows **Screen Saver Settings** (press `Win + S`, type `Change screen saver`, and press Enter).
+2. Make sure **Fliqlo** is selected, then click the **Settings...** button.  
+   *(Or simply right-click `Fliqlo.scr` in File Explorer and click **Configure**, or run `Fliqlo.scr /c` from the command line).*
+3. In the settings panel:
+   * **Hour Format**: Pick **24h**, **12h** (with AM/PM indicators), or **24h without leading zero**.
+   * **Scale**: Drag the slider to shrink or expand the flip clock on your display.
+   * **Brightness**: Adjust the background tile brightness.
+4. Click **OK**. Your preferences are saved locally and persist across reboots.
+
+---
+
+## Running Directly from a Shortcut
+
+To start the screensaver on demand without waiting for the idle timeout:
+* Create a shortcut to `Fliqlo.scr`.
+* Right-click the shortcut, select **Properties**, and add `/s` to the end of the **Target** field:
+  ```
+  "C:\Path\To\Fliqlo.scr" /s
+  ```
+* Double-clicking the shortcut will launch the full-screen clock across all your monitors immediately.
+
+---
+
+## Building from Source
+
+Requirements: Windows 10/11 with .NET SDK or Visual Studio / MSBuild installed.
+
+### One-Click Build
+Run the included batch script from the repo root:
 ```cmd
 build.bat
 ```
-Скрипт автоматически найдет компилятор Roslyn `csc.exe` и соберет готовый `Fliqlo.scr`.
+The script will locate your Roslyn `csc.exe` compiler and generate `dist\Fliqlo.scr`.
 
-### Либо через .NET CLI:
+### .NET CLI Build
 ```cmd
 dotnet build Fliqlo.csproj -c Release
 ```
 
 ---
 
-## 📄 Лицензия и копирайты / License & Credits
+## Credits & License
 
-* Дизайн, концепт и фирменный перекидной шрифт принадлежат **Yuji Adachi** ([9031.com](https://9031.com/) / [fliqlo.com](https://fliqlo.com/)).
-* Данный форк создан в образовательных целях для обеспечения работоспособности заставки в оффлайн-режиме и автономных системах.
-* Код форка распространяется под лицензией MIT.
+* Original screensaver concept, visual design, and flip clock font by **Yuji Adachi** ([9031.com](https://9031.com/) / [fliqlo.com](https://fliqlo.com/)).
+* Offline modification and Windows integration by [andreysdsgroup](https://github.com/andreysdsgroup).
+* Distributed under the [MIT License](LICENSE).

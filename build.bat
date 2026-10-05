@@ -1,7 +1,9 @@
-@echo off
+﻿@echo off
 setlocal
 
 echo Building Fliqlo Offline Screensaver...
+
+if not exist dist mkdir dist
 
 where csc >nul 2>nul
 if %ERRORLEVEL% equ 0 (
@@ -30,11 +32,11 @@ goto :DONE
 
 :COMPILE
 echo Using compiler: %CSC_EXE%
-%CSC_EXE% /target:winexe /out:Fliqlo.scr /platform:anycpu /optimize+ Fliqlo.cs LocalServer.cs WebAssets.cs Resources.cs
+%CSC_EXE% /target:winexe /out:dist\Fliqlo.scr /platform:anycpu /optimize+ Fliqlo.cs LocalServer.cs WebAssets.cs Resources.cs
 
 :DONE
-if exist Fliqlo.scr (
-    echo [SUCCESS] Fliqlo.scr built successfully!
+if exist dist\Fliqlo.scr (
+    echo [SUCCESS] dist\Fliqlo.scr built successfully!
 ) else (
     echo [ERROR] Build failed!
 )
