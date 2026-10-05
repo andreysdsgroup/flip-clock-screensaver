@@ -325,7 +325,7 @@ namespace Fliqlo
 				ResumeLayout();
 				webBrowser1.ScriptErrorsSuppressed = true;
 				webBrowser1.ScrollBarsEnabled = false;
-				webBrowser1.Navigate(LocalServer.GetUrl("c=flql&v=1.5.1&b=1"), "_self", null, "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko Fliqlo Screensaver");
+				webBrowser1.Navigate(LocalServer.GetUrl("c=flql&v=1.5.1&b=1&tf=1"), "_self", null, "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko Fliqlo Screensaver");
 			}
 			else
 			{
@@ -626,7 +626,7 @@ namespace Fliqlo
 				ResumeLayout();
 				webBrowser1.ScriptErrorsSuppressed = true;
 				webBrowser1.ScrollBarsEnabled = false;
-				webBrowser1.Navigate(LocalServer.GetUrl("c=flql&v=1.5.1&b=1&mode=set&zoom=" + DpiScale), "_self", null, "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko Fliqlo Screensaver");
+				webBrowser1.Navigate(LocalServer.GetUrl("c=flql&v=1.5.1&b=1&mode=set&tf=1&zoom=" + DpiScale), "_self", null, "User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko Fliqlo Screensaver");
 			}
 			else
 			{
@@ -874,7 +874,7 @@ namespace Fliqlo
 			}
 			if (startType == StartType.None)
 			{
-				startType = StartType.Config;
+				startType = StartType.Save;
 			}
 			switch (startType)
 			{
