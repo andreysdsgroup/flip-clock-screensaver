@@ -3,6 +3,9 @@
 > **100% Offline Flip Clock Screensaver for Windows**  
 > Полностью автономная заставка «Перекидные часы» (Flip Clock) для Windows без зависимости от интернета и без телеметрии.
 
+
+![Fliqlo Offline Screenshot](actual_clock.png)
+
 ---
 
 ## 📌 О форке и источнике / Fork Information
