@@ -1,0 +1,9 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.original.scr
+test_render.png
+screen_capture.png
+*.log

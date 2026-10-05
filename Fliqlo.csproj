@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>Fliqlo</AssemblyName>
+    <RootNamespace>Fliqlo</RootNamespace>
+    <ApplicationIcon></ApplicationIcon>
+    <StartupObject>Fliqlo.Program</StartupObject>
+    <TargetExt>.scr</TargetExt>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AssemblyTitle>Fliqlo (Offline Edition)</AssemblyTitle>
+    <AssemblyDescription>Flip Clock Screensaver for Windows (100% Offline Edition)</AssemblyDescription>
+    <Company>9031 / Fork by andreysdsgroup</Company>
+    <Product>Fliqlo Offline</Product>
+    <Copyright>Original (c) 2021 Yuji Adachi (9031.com). Offline Fork (c) 2026.</Copyright>
+    <Version>1.5.2</Version>
+    <FileVersion>1.5.2.0</FileVersion>
+  </PropertyGroup>
+</Project>
